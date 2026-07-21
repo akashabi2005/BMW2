@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW Premium Experience</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #0f0f0f;
+            --accent: #EFEFEF;
+            --text-main: #FFFFFF;
+            --glass-bg: rgba(25, 25, 25, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient: linear-gradient(135deg, #1f1f1f 0%, #0a0a0a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Nav Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 1px;
+            background: var(--text-main);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section (main1) */
+        .hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--primary);
+        }
+
+        .hero-img-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+            transform: scale(1.05); /* Slight zoom for parallax feel */
+            transition: transform 10s ease-out;
+            animation: zoomOut 20s infinite alternate;
+        }
+
+        @keyframes zoomOut {
+            from { transform: scale(1.1); }
+            to { transform: scale(1.0); }
+        }
+
+        .hero-title {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .hero-title h1 {
+            font-size: 8rem;
+            font-weight: 800;
+            letter-spacing: 20px;
+            margin-left: 20px; /* offset for letter-spacing */
+            background: -webkit-linear-gradient(#fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero-title p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-top: 10px;
+            color: #ccc;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Video Section (main2) */
+        .video-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-section video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .video-overlay {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease;
+        }
+
+        .video-overlay:hover {
+            transform: translateY(-10px);
+        }
+
+        .video-overlay h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .video-overlay p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ddd;
+            font-weight: 300;
+        }
+
+        /* Gallery (main3) */
+        .gallery {
+            width: 100vw;
+            min-height: 100vh;
+            padding: 100px 5vw;
+            background: var(--gradient);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 60px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .grid-item {
+            position: relative;
+            width: 100%;
+            height: 45vh;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .grid-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .grid-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            width: 100vw;
+            min-height: 100vh;
+            background: url('https://wallpaperaccess.com/full/338656.jpg') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .booking-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .booking-container {
+            position: relative;
+            z-index: 2;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 60px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            transform: translateY(0);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .booking-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+
+        .booking-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .booking-container p {
+            text-align: center;
+            color: #bbb;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #ddd;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group select option {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #e0e0e0;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid rgba(0, 255, 0, 0.5);
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: #050505;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title h1 { font-size: 5rem; letter-spacing: 10px; }
+            .grid { grid-template-columns: 1fr; }
+            .booking-container { padding: 40px 30px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">BMW</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#models">Models</a></li>
+            <li><a href="#book">Book Test Drive</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main 1: Hero -->
+    <section id="home" class="hero">
+        <div class="hero-img-container">
+            <img src="https://wallpaperaccess.com/full/1125026.jpg" alt="BMW Hero Front" class="hero-img">
+        </div>
+        <div class="hero-title">
+            <h1>A POWER</h1>
+            <p>THE ULTIMATE DRIVING MACHINE</p>
+        </div>
+    </section>
+
+    <!-- Main 2: Video Section -->
+    <section id="experience" class="video-section">
+        <video src="videoplayback (1).mp4" autoplay loop muted playsinline></video>
+        <div class="video-overlay">
+            <h2>Pure Adrenaline</h2>
+            <p>Experience the thrill of absolute power and precision. Engineered for those who demand nothing but the absolute best from their machines.</p>
+        </div>
+    </section>
+
+    <!-- Main 3: Gallery -->
+    <section id="models" class="gallery">
+        <h2 class="section-title">Exclusive Models</h2>
+        <div class="grid">
+            <div class="grid-item">
+                <img src="https://wallpapers.com/images/hd/4k-bmw-4-series-x44p1lte1sjdpod1.jpg" alt="BMW Model 1">
+            </div>
+            <div class="grid-item">
+                <img src="https://wallpaperaccess.com/full/338483.jpg" alt="BMW Model 2">
+            </div>
+            <div class="grid-item">
+                <img src="https://wallpapercave.com/wp/wp9209304.jpg" alt="BMW Model 3">
+            </div>
+            <div class="grid-item">
+                <img src="https://wallpaperaccess.com/full/338364.jpg" alt="BMW Model 4">
+            </div>
+        </div>
+    </section>
+
+    <!-- Main 4: Booking Form -->
+    <section id="book" class="booking-section">
+        <div class="booking-container">
+            <h2>Book a Test Drive</h2>
+            <p>Reserve your exclusive session today.</p>
+            
+            <div id="success-message" class="success-message">
+                Your booking has been successfully confirmed!
+            </div>
+
+            <form action="/book" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="date">Preferred Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="model">Select Model</label>
+                    <select id="model" name="model" required>
+                        <option value="" disabled selected>Choose a model...</option>
+                        <option value="M3 Competition">M3 Competition</option>
+                        <option value="M4 Coupe">M4 Coupe</option>
+                        <option value="M5 Sedan">M5 Sedan</option>
+                        <option value="M8 Gran Coupe">M8 Gran Coupe</option>
+                        <option value="X5 M Competition">X5 M Competition</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Confirm Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 BMW Premium Experience. All rights reserved.</p>
+    </footer>
+
+    <script>
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.get('success') === '1') {
+                document.getElementById('success-message').style.display = 'block';
+                // Remove the URL parameter without reloading the page
+                window.history.replaceState({}, document.title, window.location.pathname + "#book");
+            }
+        });
+    </script>
+</body>
+</html>
